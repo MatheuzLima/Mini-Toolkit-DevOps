@@ -1,20 +1,20 @@
-version: "3.8"
+# version: "3.8"
 
-services:
-  mini-toolkit-api:
-    build: .
-    container_name: mini-toolkit-api
-    networks:
-      - web
-    restart: always
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.mini-toolkit.rule=Host(`toolkit-api.sparkflux.com.br`)"
-      - "traefik.http.routers.mini-toolkit.entrypoints=websecure"
-      - "traefik.http.routers.mini-toolkit.tls.certresolver=letsencrypt"
-      - "traefik.http.services.mini-toolkit.loadbalancer.server.port=3000"
+# services:
+#   mini-toolkit-api:
+#     build: .
+#     container_name: mini-toolkit-api
+#     networks:
+#       - web
+#     restart: always
+#     labels:
+#       - "traefik.enable=true"
+#       - "traefik.http.routers.mini-toolkit.rule=Host(`toolkit-api.sparkflux.com.br`)"
+#       - "traefik.http.routers.mini-toolkit.entrypoints=websecure"
+#       - "traefik.http.routers.mini-toolkit.tls.certresolver=letsencrypt"
+#       - "traefik.http.services.mini-toolkit.loadbalancer.server.port=3000"
 
-networks:
-  web:
-    external: true
-    name: web
+# networks:
+#   web:
+#     external: true
+#     name: web
