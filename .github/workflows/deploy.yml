@@ -37,6 +37,6 @@ jobs:
           docker rm mini-toolkit-api || true
           cd app
           docker build -t mini-toolkit-api:latest .
-          docker run -d --name mini-toolkit-api -p 80:3000 mini-toolkit-api:latest
+          docker run -d --name mini-toolkit-api --network web mini-toolkit-api:latest
           echo "✅ Deploy concluído com sucesso!"
         EOF
