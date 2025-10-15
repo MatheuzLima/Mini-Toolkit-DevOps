@@ -1,0 +1,42 @@
+name: CI/CD Mini Toolkit DevOps
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: 🧩 Checkout código
+      uses: actions/checkout@v4
+
+    - name: 🐚 Verificar scripts Bash (ShellCheck)
+      uses: ludeeus/action-shellcheck@v2
+
+    - name: 🐳 Build imagem Docker da aplicação
+      run: |
+        cd app
+        docker build -t mini-toolkit-api:latest .
+
+    - name: 🔐 Configurar acesso SSH
+      uses: webfactory/ssh-agent@v0.7.0
+      with:
+        ssh-private-key: ${{ secrets.AWS_SSH_KEY }}
+
+    - name: 📦 Copiar toolkit e app para EC2
+      run: |
+        rsync -avz -e "ssh -o StrictHostKeyChecking=no" ./ ubuntu@${{ secrets.AWS_HOST }}:/home/ubuntu/mini-toolkit-devops
+
+    - name: 🚀 Fazer deploy na EC2
+      run: |
+        ssh -o StrictHostKeyChecking=no ubuntu@${{ secrets.AWS_HOST }} << 'EOF'
+          cd ~/mini-toolkit-devops
+          docker stop mini-toolkit-api || true
+          docker rm mini-toolkit-api || true
+          cd app
+          docker build -t mini-toolkit-api:latest .
+          docker run -d --name mini-toolkit-api -p 80:3000 mini-toolkit-api:latest
+          echo "✅ Deploy concluído com sucesso!"
+        EOF
