@@ -13,7 +13,7 @@ jobs:
       uses: actions/checkout@v4
 
     - name: 🐚 Verificar scripts Bash (ShellCheck)
-      uses: ludeeus/action-shellcheck@v2
+      uses: ludeeus/action-shellcheck@master
 
     - name: 🐳 Build imagem Docker da aplicação
       run: |
