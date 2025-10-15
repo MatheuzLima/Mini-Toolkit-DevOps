@@ -32,11 +32,18 @@ jobs:
     - name: 🚀 Fazer deploy na EC2
       run: |
         ssh -o StrictHostKeyChecking=no ubuntu@${{ secrets.AWS_HOST }} << 'EOF'
-          cd ~/mini-toolkit-devops
+          cd ~/mini-toolkit-devops/app
           docker stop mini-toolkit-api || true
           docker rm mini-toolkit-api || true
-          cd app
           docker build -t mini-toolkit-api:latest .
-          docker run -d --name mini-toolkit-api --network web mini-toolkit-api:latest
+          docker run -d \
+            --name mini-toolkit-api \
+            --network web \
+            -l "traefik.enable=true" \
+            -l "traefik.http.routers.mini-toolkit.rule=Host(`toolkit-api.sparkflux.com.br`)" \
+            -l "traefik.http.routers.mini-toolkit.entrypoints=websecure" \
+            -l "traefik.http.routers.mini-toolkit.tls.certresolver=letsencrypt" \
+            -l "traefik.http.services.mini-toolkit.loadbalancer.server.port=3000" \
+            mini-toolkit-api:latest
           echo "✅ Deploy concluído com sucesso!"
         EOF
