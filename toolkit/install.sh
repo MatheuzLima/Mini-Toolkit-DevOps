@@ -1,28 +1,23 @@
 #!/bin/bash
-# ============================================
-# ⚙️ install.sh
-# Instala dependências básicas e prepara ambiente DevOps.
-# ============================================
-
 set -e
 
-echo "🚀 Iniciando instalação do Mini Toolkit DevOps..."
+echo "🚀 Verificando ambiente Mini Toolkit DevOps..."
 
-# Atualiza pacotes
-sudo apt update -y && sudo apt upgrade -y
+# Verifica se Docker já existe
+if ! command -v docker &> /dev/null
+then
+  echo "🐳 Docker não encontrado. Instalando..."
+  sudo apt update -y && sudo apt install -y docker.io docker-compose
+  sudo systemctl enable docker
+  sudo systemctl start docker
+else
+  echo "✅ Docker já está instalado. Pulando etapa..."
+fi
 
-# Instala dependências
-sudo apt install -y docker.io docker-compose curl git unzip jq
+# Dependências adicionais
+sudo apt install -y curl git unzip jq
 
-# Habilita Docker no boot
-sudo systemctl enable docker
-sudo systemctl start docker
-
-# Cria diretórios padrões
 mkdir -p /home/ubuntu/backups /home/ubuntu/logs
+sudo chmod +x toolkit/**/*.sh toolkit/*.sh
 
-# Permissões
-sudo chmod +x toolkit/**/*.sh
-sudo chmod +x toolkit/*.sh
-
-echo "✅ Ambiente configurado com sucesso!"
+echo "✅ Ambiente pronto!"
