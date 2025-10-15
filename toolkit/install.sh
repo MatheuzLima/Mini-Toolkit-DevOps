@@ -4,4 +4,4 @@ sudo systemctl enable docker
 sudo usermod -aG docker ubuntu
 exit
 
-ssh ubuntu@<IP_EC2>
+ssh ubuntu@54.233.45.155
