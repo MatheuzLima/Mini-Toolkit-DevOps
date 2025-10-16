@@ -5,10 +5,10 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 app.get("/", (req, res) => {
-  res.json({
-    message: "🚀 Mini Toolkit DevOps ativo e rodando na AWS EC2!",
-    timestamp: new Date().toISOString(),
-  });
+  // res.json({
+  //   message: "🚀 Mini Toolkit DevOps ativo e rodando na AWS EC2!",
+  //   timestamp: new Date().toISOString(),
+  // });
   res.send(`
     <!doctype html>
     <html lang="pt-BR">
