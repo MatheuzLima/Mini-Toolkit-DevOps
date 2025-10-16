@@ -4,3 +4,6 @@ toolkit/**
 
 !toolkit/install.sh
 
+git rm -r --cached toolkit
+git add toolkit/install.sh 
+git status
