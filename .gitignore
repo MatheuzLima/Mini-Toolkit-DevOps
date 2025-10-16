@@ -1,4 +1,9 @@
 app/node_modules
+
 toolkit/**
+
+!toolkit/
+!toolkit/monitor/
+
 !toolkit/install.sh
 !toolkit/monitor/check_services.sh
