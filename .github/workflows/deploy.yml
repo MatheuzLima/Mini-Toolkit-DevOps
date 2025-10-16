@@ -47,3 +47,4 @@ jobs:
           mini-toolkit-api:latest
           echo "✅ Deploy concluído com sucesso!"
         EOF
+        
