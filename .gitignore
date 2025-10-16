@@ -1,5 +1,5 @@
-app/node_modules
-app/docker-compose.yml
+app/node_modules 
+docker-compose.yml
 
 toolkit/
 
