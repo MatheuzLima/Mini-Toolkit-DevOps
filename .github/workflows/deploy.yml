@@ -48,6 +48,9 @@ jobs:
           -l "traefik.http.routers.mini-toolkit.tls.certresolver=letsencrypt" \
           -l "traefik.http.services.mini-toolkit.loadbalancer.server.port=3000" \
           mini-toolkit-api:latest
+          cd ~/mini-toolkit-devops/toolkit/utils
+          chmod +x clean_docker.sh
+          ./clean_docker.sh
           echo "✅ Deploy concluído com sucesso!"
         EOF
         
