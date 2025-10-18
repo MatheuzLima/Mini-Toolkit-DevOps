@@ -32,6 +32,9 @@ jobs:
     - name: 🚀 Fazer deploy na EC2
       run: |
         ssh -o StrictHostKeyChecking=no ubuntu@${{ secrets.AWS_HOST }} << 'EOF'
+          cd ~/mini-toolkit-devops/toolkit/backup
+          chmod +x backup_postgres.sh
+          ./backup_postgres.sh
           cd ~/mini-toolkit-devops/app
           docker stop mini-toolkit-api || true
           docker rm mini-toolkit-api || true
