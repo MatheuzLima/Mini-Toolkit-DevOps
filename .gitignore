@@ -1,6 +1,6 @@
 app/node_modules 
 docker-compose.yml
 
-toolkit/
+toolkit/menu.sh
 
 !toolkit/install.sh
