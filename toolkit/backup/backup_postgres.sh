@@ -4,6 +4,8 @@
 
 set -e
 
+echo "Iniciando Backup..."
+
 CONTAINER_NAME="postgres"
 BACKUP_DIR="/home/ubuntu/backups"
 DATE=$(date +%Y-%m-%d_%H-%M-%S)
